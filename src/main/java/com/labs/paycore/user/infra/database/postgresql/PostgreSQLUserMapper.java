@@ -3,6 +3,7 @@ package com.labs.paycore.user.infra.database.postgresql;
 import com.labs.paycore.user.domain.Email;
 import com.labs.paycore.user.domain.Nif;
 import com.labs.paycore.user.domain.User;
+
 import com.labs.paycore.user.infra.jpa.models.UserModel;
 
 public class PostgreSQLUserMapper {

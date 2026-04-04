@@ -2,6 +2,7 @@ package com.labs.paycore.user.infra.database.postgresql;
 
 import java.util.Optional;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.labs.paycore.user.domain.User;
@@ -9,10 +10,11 @@ import com.labs.paycore.user.domain.UserRepository;
 import com.labs.paycore.user.infra.jpa.repositories.JpaUserRepository;
 
 @Repository
+@Primary
 public class PostgreSQLUserRepository implements UserRepository {
   private final JpaUserRepository jpaUserRepository;
 
-  private PostgreSQLUserRepository(JpaUserRepository jpaUserRepository) {
+  public PostgreSQLUserRepository(JpaUserRepository jpaUserRepository) {
     this.jpaUserRepository = jpaUserRepository;
   }
 
@@ -24,14 +26,12 @@ public class PostgreSQLUserRepository implements UserRepository {
 
   @Override
   public Optional<User> findByNif(String nif) {
-    var user = this.jpaUserRepository.findByEmail(nif);
+    var user = this.jpaUserRepository.findByNif(nif);
     return user.map(u -> PostgreSQLUserMapper.toDomain(u));
   }
 
   @Override
-  public void create(User user) {
+  public void save(User user) {
     this.jpaUserRepository.save(PostgreSQLUserMapper.toJpaModel(user));
   }
-
- 
 }
