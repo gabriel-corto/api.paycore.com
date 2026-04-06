@@ -11,7 +11,7 @@ public class Money {
   public static Money fromUnits(long value) {
     return new Money(value * 100);
   }
-
+  
   public static Money fromCents(long value) {
     return new Money(value);
   } 
@@ -36,6 +36,10 @@ public class Money {
 
   private long toCents(long value) {
     return value * 100;
+  }
+
+  public long toUnit() {
+    return value / 100;
   }
 
   @Override

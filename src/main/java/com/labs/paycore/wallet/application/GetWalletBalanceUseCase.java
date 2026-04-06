@@ -24,10 +24,7 @@ public class GetWalletBalanceUseCase {
 
     var balanceInCents = wallet.get().getBalance().getValue(); 
     var balance = balanceInCents / 100;
-
-    System.out.println(balanceInCents);
-    System.out.println(String.valueOf(balance));
-
+    
     return new GetBalanceUseCaseOutput(String.valueOf(balance));
   }
 }
