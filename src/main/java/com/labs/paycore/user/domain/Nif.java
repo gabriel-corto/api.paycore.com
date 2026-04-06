@@ -1,7 +1,5 @@
 package com.labs.paycore.user.domain;
 
-import com.labs.paycore.shared.domain.errors.InvalidNifException;
-
 public class Nif {
   private String value;
   private String ANGOLAN_NIF_REGEX = "^[0-9]{9}[A-Z]{2}[0-9]{3}";

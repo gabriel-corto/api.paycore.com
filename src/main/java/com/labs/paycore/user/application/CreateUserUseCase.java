@@ -8,10 +8,9 @@ import com.labs.paycore.user.domain.User;
 import com.labs.paycore.wallet.domain.Wallet;
 
 import com.labs.paycore.user.domain.UserRepository;
+import com.labs.paycore.user.domain.UserWithSameEmailException;
+import com.labs.paycore.user.domain.UserWithSameNifException;
 import com.labs.paycore.wallet.domain.WalletRepository;
-
-import com.labs.paycore.shared.domain.errors.UserWithSameEmailException;
-import com.labs.paycore.shared.domain.errors.UserWithSameNifException;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 @Service

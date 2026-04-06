@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.labs.paycore.user.application.CreateUserInput;
 import com.labs.paycore.user.application.CreateUserUseCase;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -21,7 +23,7 @@ public class UserController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Void> createUser(@RequestBody CreateUserDto body) {
+  public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserDto body) {
     var input = new CreateUserInput(body.name(), body.email(), body.nif(), body.password());
     this.createUserUseCase.execute(input);
 

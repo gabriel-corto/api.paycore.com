@@ -1,5 +1,8 @@
 package com.labs.paycore.wallet.infra.database.posgtresql;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 
 import com.labs.paycore.wallet.domain.Wallet;
@@ -17,5 +20,11 @@ public class PostgreSQLWalletRepository implements WalletRepository {
   @Override
   public void save(Wallet wallet) {
     this.jpaWalletRepository.save(PostgresSQLWalletMapper.toJpaModel(wallet));
+  }
+
+  @Override
+  public Optional<Wallet> findByUserId(UUID userId) {
+    return this.jpaWalletRepository.findFirstByUserId(userId)
+      .map(w -> PostgresSQLWalletMapper.toDomain(w));
   }
 }

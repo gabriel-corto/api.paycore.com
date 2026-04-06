@@ -17,10 +17,21 @@ public class Wallet {
   }
   
   public static Wallet create(UUID userId) {
-    return new Wallet(UUID.randomUUID(), Money.toCents(0), userId);
+    return new Wallet(UUID.randomUUID(), Money.fromCents(0), userId);
   }
 
   public static Wallet restore(UUID id, Money balance, UUID userId) {
     return new Wallet(id, balance, userId);
+  }
+
+  public void deposit(long amount) {
+    this.balance.add(amount);
+  }
+
+  public void withdraw(long amount) {
+    if(amount > this.balance.getValue()) {
+      throw new InsufficientBalanceException();
+    }
+    this.balance.sub(amount);
   }
 }
