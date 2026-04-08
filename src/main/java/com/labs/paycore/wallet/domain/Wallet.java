@@ -29,7 +29,9 @@ public class Wallet {
   }
 
   public void withdraw(long amount) {
-    if(amount > this.balance.getValue()) {
+    var balanceInUnits = this.balance.getValue() / 100;
+    
+    if(amount > balanceInUnits) {
       throw new InsufficientBalanceException();
     }
     this.balance.sub(amount);

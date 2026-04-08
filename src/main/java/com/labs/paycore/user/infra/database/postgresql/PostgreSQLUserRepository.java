@@ -1,6 +1,7 @@
 package com.labs.paycore.user.infra.database.postgresql;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,11 @@ public class PostgreSQLUserRepository implements UserRepository {
   public Optional<User> findByNif(String nif) {
     var user = this.jpaUserRepository.findByNif(nif);
     return user.map(u -> PostgreSQLUserMapper.toDomain(u));
+  }
+
+  @Override
+  public Optional<User> findById(UUID id) {
+    return this.jpaUserRepository.findById(id).map(user -> PostgreSQLUserMapper.toDomain(user));
   }
 
   @Override

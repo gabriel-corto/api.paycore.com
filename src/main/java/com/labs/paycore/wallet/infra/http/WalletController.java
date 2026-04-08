@@ -7,6 +7,8 @@ import com.labs.paycore.wallet.application.GetBalanceUseCaseOutput;
 import com.labs.paycore.wallet.application.GetWalletBalanceUseCase;
 import com.labs.paycore.wallet.application.WalletDepositUseCase;
 import com.labs.paycore.wallet.application.WalletDepositUseCaseInput;
+import com.labs.paycore.wallet.application.WalletTransferUseCase;
+import com.labs.paycore.wallet.application.WalletTransferUseCaseInput;
 
 import jakarta.validation.Valid;
 
@@ -21,20 +23,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/wallet")
 public class WalletController {
   private WalletDepositUseCase walletDepositUseCase;
+  private WalletTransferUseCase walletTransferUseCase;
   private GetWalletBalanceUseCase getWalletBalanceUseCase;
 
   public WalletController(
     WalletDepositUseCase walletDepositUseCase, 
+    WalletTransferUseCase walletTransferUseCase,
     GetWalletBalanceUseCase getWalletBalanceUseCase
   ) {
     this.walletDepositUseCase = walletDepositUseCase;
+    this.walletTransferUseCase = walletTransferUseCase;
     this.getWalletBalanceUseCase = getWalletBalanceUseCase;
   }
 
   @PostMapping("/deposit")
-  public void postMethodName(@Valid @RequestBody WalletDepositDto body) {
+  public void deposit(@Valid @RequestBody WalletDepositDto body) {
     var input = new WalletDepositUseCaseInput(body.amount(), body.userId());
     this.walletDepositUseCase.execute(input);
+  }
+
+  @PostMapping("/transfer")
+  public void transfer(@Valid @RequestBody WalletTransferDto body) {
+    var input = new WalletTransferUseCaseInput(body.senderWalletId(), body.amount(), body.recipient());
+    this.walletTransferUseCase.execute(input);
   }
 
   @GetMapping("/{userId}/balance")

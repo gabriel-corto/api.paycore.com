@@ -3,6 +3,7 @@ package com.labs.paycore.user.infra.database.inmemory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,10 @@ public class InMemoryUserRepository implements UserRepository {
   @Override
   public void save(User user) {
     this.users.add(user);
+  }
+
+  @Override
+  public Optional<User> findById(UUID id) {
+    return this.users.stream().filter(user -> user.getId() == id).findFirst();
   }
 }

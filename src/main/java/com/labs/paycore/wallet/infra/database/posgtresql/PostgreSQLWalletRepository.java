@@ -27,4 +27,11 @@ public class PostgreSQLWalletRepository implements WalletRepository {
     return this.jpaWalletRepository.findFirstByUserId(userId)
       .map(w -> PostgresSQLWalletMapper.toDomain(w));
   }
+
+  @Override
+  public Optional<Wallet> findById(UUID id) {
+    return this.jpaWalletRepository.findById(id).map(wallet -> PostgresSQLWalletMapper.toDomain(wallet));
+  }
+
+
 }
