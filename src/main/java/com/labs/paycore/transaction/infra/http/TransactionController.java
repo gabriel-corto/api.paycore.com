@@ -18,10 +18,12 @@ public class TransactionController {
   private GetTransactionsByWalletIdUseCase getTransactionsUseCase;
   private GetAllTransactionsUseCase getAllTransactionsUseCase;
 
-  public TransactionController(
-    GetTransactionsByWalletIdUseCase getTransactionsUseCase, 
+  public TransactionController
+  (
+    GetTransactionsByWalletIdUseCase getTransactionsUseCase,
     GetAllTransactionsUseCase getAllTransactionsUseCase
-  ) {
+  )
+  {
     this.getTransactionsUseCase = getTransactionsUseCase;
     this.getAllTransactionsUseCase = getAllTransactionsUseCase;
   }

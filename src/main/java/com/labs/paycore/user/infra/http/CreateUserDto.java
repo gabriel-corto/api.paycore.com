@@ -1,7 +1,8 @@
 package com.labs.paycore.user.infra.http;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,7 +22,7 @@ public record CreateUserDto(
   
   @NotNull(message = "Password é obrigatória")
   @NotBlank(message = "Password é obrigatória")
-  @Min(value = 6, message = "Password deve ter pelo menos 6 caracteres")
+  @Length(min = 6, message = "Password deve ter pelo menos 6 caracteres")
   String password
 ) {
   
