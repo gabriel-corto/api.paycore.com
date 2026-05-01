@@ -18,7 +18,7 @@ public class Email {
 
   private void validate(String value) {
     if(!value.contains("@")) {
-      throw new Error("E-mail inválido.");
+      throw new InvalidEmailException();
     }
   }
 }

@@ -3,6 +3,7 @@ package com.labs.paycore.wallet.infra.database.posgtresql;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.labs.paycore.wallet.domain.Wallet;
@@ -10,6 +11,7 @@ import com.labs.paycore.wallet.domain.WalletRepository;
 import com.labs.paycore.wallet.infra.jpa.repositories.JpaWalletRepository;
 
 @Repository
+@Primary
 public class PostgreSQLWalletRepository implements WalletRepository {
   private final JpaWalletRepository jpaWalletRepository;
 
