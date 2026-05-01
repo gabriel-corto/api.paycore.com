@@ -7,9 +7,8 @@ on:
     branches: ["main"]
 
 jobs:
-  tests:
+  automatized-tests:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:15
