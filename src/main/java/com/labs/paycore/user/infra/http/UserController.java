@@ -24,9 +24,13 @@ public class UserController {
 
   @PostMapping("/create")
   public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserDto body) {
-    var input = new CreateUserInput(body.name(), body.email(), body.nif(), body.password());
+    var input = new CreateUserInput(
+      body.name(), 
+      body.email(), 
+      body.nif(), 
+      body.password()
+    );
     this.createUserUseCase.execute(input);
-
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }

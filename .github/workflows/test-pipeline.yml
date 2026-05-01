@@ -1,0 +1,36 @@
+name: PayCore QA Pipeline - Testes de Back-end
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: paycore_db
+        ports:
+          - 5432:5432
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v3
+
+      - name: Java Config
+        uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: RUn Tests (JUnit)
+        run: ./gradlew test
+
+      - name: Final Report
+        run: echo "All tests passed. The Back-end is already!"
