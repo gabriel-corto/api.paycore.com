@@ -28,7 +28,7 @@ jobs:
           java-version: "21"
           distribution: "temurin"
 
-      - name: RUn Tests (JUnit)
+      - name: Run Tests (JUnit)
         run: ./gradlew test
 
       - name: Final Report
