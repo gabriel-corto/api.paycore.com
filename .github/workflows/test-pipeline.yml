@@ -1,4 +1,4 @@
-name: PayCore QA Pipeline - Testes de Back-end
+name: PayCore QA/CI Pipeline
 
 on:
   push:
@@ -14,8 +14,8 @@ jobs:
         image: postgres:15
         env:
           POSTGRES_USER: admin
-          POSTGRES_PASSWORD: 12345
-          POSTGRES_DB: paycore_db
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: paycore
         ports:
           - 5432:5432
     steps:
