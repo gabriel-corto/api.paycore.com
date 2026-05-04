@@ -7,10 +7,9 @@ import com.labs.paycore.wallet.infra.jpa.models.WalletModel;
 public class PostgresSQLWalletMapper {
   static Wallet toDomain(WalletModel walletModel) {
     return Wallet.restore(
-      walletModel.getId(), 
-      Money.fromCents(walletModel.getBalance()), 
-      walletModel.getUserId()
-    );
+        walletModel.getId(),
+        Money.toCents(walletModel.getBalance()),
+        walletModel.getUserId());
   }
 
   static WalletModel toJpaModel(Wallet wallet) {

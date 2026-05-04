@@ -8,14 +8,13 @@ public class PostgreSQLTransactionMapper {
 
     static Transaction toDomain(TransactionModel transactionModel) {
         return Transaction.restore(
-            transactionModel.getId(),
-            Money.fromCents(transactionModel.getAmount()),
-            transactionModel.getOperation(),
-            transactionModel.getType(),
-            transactionModel.getStatus(),
-            transactionModel.getCreatedAt(),
-            transactionModel.getWalletId()
-        );
+                transactionModel.getId(),
+                Money.toCents(transactionModel.getAmount()),
+                transactionModel.getOperation(),
+                transactionModel.getType(),
+                transactionModel.getStatus(),
+                transactionModel.getCreatedAt(),
+                transactionModel.getWalletId());
     }
 
     static TransactionModel toJpaModel(Transaction transaction) {

@@ -15,9 +15,9 @@ public class Wallet {
     this.balance = balance;
     this.userId = userId;
   }
-  
+
   public static Wallet create(UUID userId) {
-    return new Wallet(UUID.randomUUID(), Money.fromCents(0), userId);
+    return new Wallet(UUID.randomUUID(), Money.toCents(0), userId);
   }
 
   public static Wallet restore(UUID id, Money balance, UUID userId) {
@@ -30,8 +30,8 @@ public class Wallet {
 
   public void withdraw(long amount) {
     var balanceInUnits = this.balance.getValue() / 100;
-    
-    if(amount > balanceInUnits) {
+
+    if (amount > balanceInUnits) {
       throw new InsufficientBalanceException();
     }
     this.balance.sub(amount);

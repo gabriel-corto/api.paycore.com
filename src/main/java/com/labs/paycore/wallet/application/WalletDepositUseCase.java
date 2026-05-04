@@ -18,9 +18,8 @@ public class WalletDepositUseCase {
     private TransactionRepository transactionRepository;
 
     public WalletDepositUseCase(
-        WalletRepository walletRepository,
-        TransactionRepository transactionRepository
-    ) {
+            WalletRepository walletRepository,
+            TransactionRepository transactionRepository) {
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
     }
@@ -35,14 +34,14 @@ public class WalletDepositUseCase {
 
         var parsedAmount = new BigDecimal(input.amount());
         long amount = parsedAmount.longValue();
+
         wallet.get().deposit(amount);
 
         var transaction = Transaction.create(
-            Money.fromUnits(amount),
-            TransactionOperation.DEPOSIT,
-            TransactionType.INCOME,
-            wallet.get().getId()
-        );
+                Money.toCents(amount),
+                TransactionOperation.DEPOSIT,
+                TransactionType.INCOME,
+                wallet.get().getId());
 
         this.walletRepository.save(wallet.get());
         this.transactionRepository.save(transaction);

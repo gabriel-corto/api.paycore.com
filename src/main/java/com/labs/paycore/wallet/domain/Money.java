@@ -8,33 +8,33 @@ public class Money {
     this.value = value;
   }
 
-  public static Money fromUnits(long value) {
+  public static Money toCents(long value) {
     return new Money(value * 100);
   }
-  
-  public static Money fromCents(long value) {
+
+  public static Money toUnits(long value) {
     return new Money(value);
-  } 
+  }
 
   public long getValue() {
     return this.value;
   }
 
   private void validate(long value) {
-    if(value < 0) {
-      throw new Error("Erro! valor negativo.");
+    if (value < 0) {
+      throw new InvalidAmountException();
     }
   }
 
   public void add(long value) {
-    this.value = this.value + toCents(value);
+    this.value = this.value + toCent(value);
   }
 
   public void sub(long value) {
-    this.value = this.value - toCents(value);
+    this.value = this.value - toCent(value);
   }
 
-  private long toCents(long value) {
+  private long toCent(long value) {
     return value * 100;
   }
 

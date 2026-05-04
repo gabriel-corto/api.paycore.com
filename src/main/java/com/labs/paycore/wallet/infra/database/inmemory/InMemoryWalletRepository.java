@@ -21,12 +21,11 @@ public class InMemoryWalletRepository implements WalletRepository {
 
   @Override
   public Optional<Wallet> findById(UUID id) {
-    return this.wallet.stream().filter(w -> w.getId() == id).findFirst();
+    return this.wallet.stream().filter(w -> w.getId().equals(id)).findFirst();
   }
 
   @Override
   public Optional<Wallet> findByUserId(UUID userId) {
-    return this.wallet.stream().filter(w -> w.getUserId() == userId).findFirst();
+    return this.wallet.stream().filter(w -> w.getUserId().equals(userId)).findFirst();
   }
-  
 }

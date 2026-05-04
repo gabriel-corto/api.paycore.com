@@ -13,15 +13,15 @@ import com.labs.paycore.user.domain.UserRepository;
 @Repository
 public class InMemoryUserRepository implements UserRepository {
   private List<User> users = new ArrayList<>();
-  
+
   @Override
   public Optional<User> findByEmail(String email) {
-    return this.users.stream().filter(user -> user.getEmail().getValue() == email).findFirst();
+    return this.users.stream().filter(user -> user.getEmail().getValue().equals(email)).findFirst();
   }
 
   @Override
   public Optional<User> findByNif(String nif) {
-    return this.users.stream().filter(user -> user.getNif().getValue() == nif).findFirst();
+    return this.users.stream().filter(user -> user.getNif().getValue().equals(nif)).findFirst();
   }
 
   @Override
@@ -31,6 +31,6 @@ public class InMemoryUserRepository implements UserRepository {
 
   @Override
   public Optional<User> findById(UUID id) {
-    return this.users.stream().filter(user -> user.getId() == id).findFirst();
+    return this.users.stream().filter(user -> user.getId().equals(id)).findFirst();
   }
 }
