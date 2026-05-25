@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/wallet")
 public class WalletController {
@@ -27,10 +26,11 @@ public class WalletController {
   private GetWalletBalanceUseCase getWalletBalanceUseCase;
 
   public WalletController(
-    WalletDepositUseCase walletDepositUseCase, 
+    WalletDepositUseCase walletDepositUseCase,
     WalletTransferUseCase walletTransferUseCase,
     GetWalletBalanceUseCase getWalletBalanceUseCase
-  ) {
+  ) 
+  {
     this.walletDepositUseCase = walletDepositUseCase;
     this.walletTransferUseCase = walletTransferUseCase;
     this.getWalletBalanceUseCase = getWalletBalanceUseCase;
@@ -44,7 +44,12 @@ public class WalletController {
 
   @PostMapping("/transfer")
   public void transfer(@Valid @RequestBody WalletTransferDto body) {
-    var input = new WalletTransferUseCaseInput(body.senderWalletId(), body.amount(), body.recipient());
+    var input = new WalletTransferUseCaseInput(
+      body.senderWalletId(), 
+      body.amount(), 
+      body.recipient()
+    );
+    
     this.walletTransferUseCase.execute(input);
   }
 

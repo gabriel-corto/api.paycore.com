@@ -25,8 +25,11 @@ public class WalletTransferUseCase {
     private final TransactionRepository transactionRepository;
 
     public WalletTransferUseCase(
-            UserRepository userRepository, WalletRepository walletRepository,
-            TransactionRepository transactionRepository) {
+        UserRepository userRepository,
+        WalletRepository walletRepository,
+        TransactionRepository transactionRepository
+    ) 
+    {
         this.userRepository = userRepository;
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
@@ -62,16 +65,18 @@ public class WalletTransferUseCase {
         walletRepository.save(recipientWallet.get());
 
         var senderTransaction = Transaction.create(
-                Money.toCents(amount),
-                TransactionOperation.TRANSFER,
-                TransactionType.OUTCOME,
-                senderWalletId);
+            Money.toCents(amount),
+            TransactionOperation.TRANSFER,
+            TransactionType.OUTCOME,
+            senderWalletId
+        );
 
         var recipientTransaction = Transaction.create(
-                Money.toCents(amount),
-                TransactionOperation.TRANSFER,
-                TransactionType.INCOME,
-                recipientWallet.get().getUserId());
+            Money.toCents(amount),
+            TransactionOperation.TRANSFER,
+            TransactionType.INCOME,
+            recipientWallet.get().getUserId()
+        );
 
         transactionRepository.save(senderTransaction);
         transactionRepository.save(recipientTransaction);

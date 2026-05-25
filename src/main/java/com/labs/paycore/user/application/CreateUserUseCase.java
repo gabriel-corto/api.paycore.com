@@ -13,14 +13,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateUserUseCase {
-
     private final UserRepository userRepository;
     private final WalletRepository walletRepository;
 
-    public CreateUserUseCase(
+    public CreateUserUseCase
+    (
         UserRepository userRepository,
         WalletRepository walletRepository
-    ) {
+    ) 
+    {
         this.userRepository = userRepository;
         this.walletRepository = walletRepository;
     }

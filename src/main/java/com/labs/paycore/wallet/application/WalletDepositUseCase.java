@@ -1,15 +1,17 @@
 package com.labs.paycore.wallet.application;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+import org.springframework.stereotype.Service;
+
 import com.labs.paycore.transaction.domain.Transaction;
 import com.labs.paycore.transaction.domain.TransactionOperation;
 import com.labs.paycore.transaction.domain.TransactionRepository;
 import com.labs.paycore.transaction.domain.TransactionType;
+
 import com.labs.paycore.wallet.domain.Money;
 import com.labs.paycore.wallet.domain.NotFoundWalletException;
 import com.labs.paycore.wallet.domain.WalletRepository;
-import java.math.BigDecimal;
-import java.util.UUID;
-import org.springframework.stereotype.Service;
 
 @Service
 public class WalletDepositUseCase {
@@ -18,8 +20,10 @@ public class WalletDepositUseCase {
     private TransactionRepository transactionRepository;
 
     public WalletDepositUseCase(
-            WalletRepository walletRepository,
-            TransactionRepository transactionRepository) {
+        WalletRepository walletRepository,
+        TransactionRepository transactionRepository
+    ) 
+    {
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
     }
@@ -38,10 +42,11 @@ public class WalletDepositUseCase {
         wallet.get().deposit(amount);
 
         var transaction = Transaction.create(
-                Money.toCents(amount),
-                TransactionOperation.DEPOSIT,
-                TransactionType.INCOME,
-                wallet.get().getId());
+            Money.toCents(amount),
+            TransactionOperation.DEPOSIT,
+            TransactionType.INCOME,
+            wallet.get().getId()
+        );
 
         this.walletRepository.save(wallet.get());
         this.transactionRepository.save(transaction);

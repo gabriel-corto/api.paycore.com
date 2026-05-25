@@ -31,4 +31,5 @@ public class MoneyTest {
       Money.toUnits(-100);
     });
   }
+
 }

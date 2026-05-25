@@ -6,6 +6,6 @@ import com.labs.paycore.shared.domain.errors.DomainError;
 
 public class InvalidNifException extends DomainError {
   public InvalidNifException() {
-    super("Nif Inválido", HttpStatus.BAD_REQUEST);
+    super("Invalid NIF", HttpStatus.BAD_REQUEST);
   }
 }
