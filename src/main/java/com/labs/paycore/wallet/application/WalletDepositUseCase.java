@@ -1,7 +1,5 @@
 package com.labs.paycore.wallet.application;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.labs.paycore.transaction.domain.Transaction;
@@ -29,15 +27,13 @@ public class WalletDepositUseCase {
     }
 
     public void execute(WalletDepositUseCaseInput input) {
-        UUID userId = UUID.fromString(input.userId());
-        var wallet = this.walletRepository.findByUserId(userId);
+        var wallet = this.walletRepository.findByUserId(input.userId());
 
         if (wallet.isEmpty()) {
             throw new NotFoundWalletException();
         }
 
-        var parsedAmount = new BigDecimal(input.amount());
-        long amount = parsedAmount.longValue();
+        long amount = input.amount().longValue();
 
         wallet.get().deposit(amount);
 

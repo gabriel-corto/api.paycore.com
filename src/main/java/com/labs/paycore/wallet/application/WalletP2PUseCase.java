@@ -1,7 +1,5 @@
 package com.labs.paycore.wallet.application;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.labs.paycore.transaction.domain.Transaction;
@@ -36,8 +34,7 @@ public class WalletP2PUseCase {
     }
 
     public void execute(WalletP2PUseCaseInput input) {
-        UUID senderWalletId = UUID.fromString(input.senderWalletId());
-        var senderWallet = this.walletRepository.findById(senderWalletId);
+        var senderWallet = this.walletRepository.findById(input.senderWalletId());
 
         if (senderWallet.isEmpty()) {
             throw new NotFoundWalletException();
@@ -53,8 +50,7 @@ public class WalletP2PUseCase {
             throw new SelfTransferException();
         }
 
-        var amountInDecimal = new BigDecimal(input.amount());
-        var amount = amountInDecimal.longValue();
+        var amount = input.amount().longValue();
 
         senderWallet.get().withdraw(amount);
 
@@ -68,7 +64,7 @@ public class WalletP2PUseCase {
             Money.toCents(amount),
             TransactionOperation.TRANSFER,
             TransactionType.OUTCOME,
-            senderWalletId
+            input.senderWalletId()
         );
 
         var recipientTransaction = Transaction.create(

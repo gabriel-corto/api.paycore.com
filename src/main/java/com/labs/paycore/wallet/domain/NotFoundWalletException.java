@@ -4,6 +4,6 @@ import com.labs.paycore.shared.domain.errors.DomainError;
 
 public class NotFoundWalletException extends DomainError {
   public NotFoundWalletException() {
-    super("Carteira não encontrada.");
+    super("Wallet not found.");
   }
 }

@@ -1,7 +1,10 @@
 package com.labs.paycore.wallet.application;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 public record WalletP2PUseCaseInput(
-  String senderWalletId,
-  String amount, 
+  UUID senderWalletId,
+  BigDecimal amount,
   String recipient
 ) {}

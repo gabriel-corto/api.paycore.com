@@ -15,8 +15,8 @@ public class GetWalletBalanceUseCase {
     this.walletRepository = walletRepository;
   }
 
-  public GetBalanceUseCaseOutput execute(String userId) {
-    var wallet = this.walletRepository.findByUserId(UUID.fromString(userId));
+  public GetBalanceUseCaseOutput execute(String walletId) {
+    var wallet = this.walletRepository.findById(UUID.fromString(walletId));
 
     if(wallet.isEmpty()) {
       throw new NotFoundWalletException();

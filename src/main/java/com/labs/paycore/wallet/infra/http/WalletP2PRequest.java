@@ -1,18 +1,15 @@
 package com.labs.paycore.wallet.infra.http;
 
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record WalletP2PRequest(
-  @NotBlank(message = "Sender Wallet Id Não pode ser vazio!")
-  @NotNull(message = "Sender Wallet Id Não pode ser vazio!")
-  String senderWalletId,
+  @NotNull(message = "amount cannot be null!")
+  BigDecimal amount, 
 
-  @NotBlank(message = "Amount Não pode ser vazio!")
-  @NotNull(message = "Amount Wallet Id Não pode ser vazio!")
-  String amount, 
-
-  @NotBlank(message = "Repicient Não pode ser vazio!")
-  @NotNull(message = "Repicient Não pode ser vazio!")
+  @NotBlank(message = "recipient cannot be null!")
+  @NotNull(message = "recipient cannot be null!")
   String recipient
 ) {}
