@@ -1,5 +1,7 @@
 package com.labs.paycore.wallet.application;
 
-public record GetBalanceUseCaseOutput(String balance) {
-  
+import java.math.BigDecimal;
+
+public record GetBalanceUseCaseOutput(BigDecimal balance) {
+
 }
