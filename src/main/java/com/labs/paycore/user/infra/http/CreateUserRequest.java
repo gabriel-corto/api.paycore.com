@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record CreateUserDto(
+public record CreateUserRequest(
   @NotNull(message = "Nome é obrigatório")
   @NotBlank(message = "Nome é obrigatório")
   String name,

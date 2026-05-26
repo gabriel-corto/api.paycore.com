@@ -1,6 +1,6 @@
 package com.labs.paycore.wallet.application;
 
-public record WalletTransferUseCaseInput(
+public record WalletP2PUseCaseInput(
   String senderWalletId,
   String amount, 
   String recipient

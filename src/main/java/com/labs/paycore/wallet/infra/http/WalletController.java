@@ -3,12 +3,13 @@ package com.labs.paycore.wallet.infra.http;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labs.paycore.shared.types.ApiResponse;
 import com.labs.paycore.wallet.application.GetBalanceUseCaseOutput;
 import com.labs.paycore.wallet.application.GetWalletBalanceUseCase;
 import com.labs.paycore.wallet.application.WalletDepositUseCase;
 import com.labs.paycore.wallet.application.WalletDepositUseCaseInput;
-import com.labs.paycore.wallet.application.WalletTransferUseCase;
-import com.labs.paycore.wallet.application.WalletTransferUseCaseInput;
+import com.labs.paycore.wallet.application.WalletP2PUseCase;
+import com.labs.paycore.wallet.application.WalletP2PUseCaseInput;
 
 import jakarta.validation.Valid;
 
@@ -22,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/wallet")
 public class WalletController {
   private WalletDepositUseCase walletDepositUseCase;
-  private WalletTransferUseCase walletTransferUseCase;
+  private WalletP2PUseCase walletTransferUseCase;
   private GetWalletBalanceUseCase getWalletBalanceUseCase;
 
   public WalletController(
     WalletDepositUseCase walletDepositUseCase,
-    WalletTransferUseCase walletTransferUseCase,
+    WalletP2PUseCase walletTransferUseCase,
     GetWalletBalanceUseCase getWalletBalanceUseCase
   ) 
   {
@@ -37,20 +38,22 @@ public class WalletController {
   }
 
   @PostMapping("/deposit")
-  public void deposit(@Valid @RequestBody WalletDepositDto body) {
+  public void deposit(@Valid @RequestBody WalletDepositRequest body) {
     var input = new WalletDepositUseCaseInput(body.amount(), body.userId());
     this.walletDepositUseCase.execute(input);
   }
 
-  @PostMapping("/transfer")
-  public void transfer(@Valid @RequestBody WalletTransferDto body) {
-    var input = new WalletTransferUseCaseInput(
+  @PostMapping("/p2p")
+  public ApiResponse<Void> p2p(@Valid @RequestBody WalletP2PRequest body) {
+    var input = new WalletP2PUseCaseInput(
       body.senderWalletId(), 
       body.amount(), 
       body.recipient()
     );
     
     this.walletTransferUseCase.execute(input);
+
+    return ApiResponse.ok("P2P Transfer completed successfully");
   }
 
   @GetMapping("/{userId}/balance")

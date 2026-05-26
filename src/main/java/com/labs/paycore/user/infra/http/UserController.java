@@ -1,14 +1,11 @@
 package com.labs.paycore.user.infra.http;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.labs.paycore.user.application.CreateUserInput;
+import com.labs.paycore.shared.types.ApiResponse;
 import com.labs.paycore.user.application.CreateUserUseCase;
 
 import jakarta.validation.Valid;
@@ -23,14 +20,16 @@ public class UserController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserDto body) {
-    var input = new CreateUserInput(
-      body.name(), 
-      body.email(), 
-      body.nif(), 
-      body.password()
-    );
-    this.createUserUseCase.execute(input);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+  public ApiResponse<CreateUserResponse> createUser(@Valid @RequestBody CreateUserRequest body) {
+    var input = CreateUserInputMapper.toCreateUserInput(body);
+
+    var output = this.createUserUseCase.execute(input);
+
+    return ApiResponse.success(new CreateUserResponse(
+      output.id(),
+      output.name(),
+      output.email(),
+      output.nif()
+    ));
   }
 }

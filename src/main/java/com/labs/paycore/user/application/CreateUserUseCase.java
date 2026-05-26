@@ -16,8 +16,7 @@ public class CreateUserUseCase {
     private final UserRepository userRepository;
     private final WalletRepository walletRepository;
 
-    public CreateUserUseCase
-    (
+    public CreateUserUseCase(
         UserRepository userRepository,
         WalletRepository walletRepository
     ) 
@@ -26,7 +25,7 @@ public class CreateUserUseCase {
         this.walletRepository = walletRepository;
     }
 
-    public void execute(CreateUserInput input) {
+    public CreateUserUseCaseOutput execute(CreateUserInput input) {
         var userWithSameEmail = this.userRepository.findByEmail(input.email());
 
         if (userWithSameEmail.isPresent()) {
@@ -55,5 +54,12 @@ public class CreateUserUseCase {
 
         this.userRepository.save(user);
         this.walletRepository.save(wallet);
+
+        return new CreateUserUseCaseOutput(
+            user.getId().toString(),
+            user.getName(),
+            user.getEmail().getValue(),
+            user.getNif().getValue()
+        );
     }
 }

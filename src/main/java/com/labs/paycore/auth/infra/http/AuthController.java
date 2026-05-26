@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.labs.paycore.auth.application.LoginUseCase;
-import com.labs.paycore.auth.application.LoginUseCaseInput;
+import com.labs.paycore.shared.types.ApiResponse;
 
 import jakarta.validation.Valid;
 
@@ -22,12 +22,12 @@ public class AuthController {
   }
 
   @PostMapping("/login")  
-  public LoginResponse login(@Valid @RequestBody LoginDto body) {
-    var input = new LoginUseCaseInput(body.email(), body.password());
+  public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest body) {
+    var input = AuthInputMapper.toLoginInput(body);
 
     var output = this.loginUseCase.execute(input);
 
-    return LoginResponse.wrap(output.accessToken());
+    return ApiResponse.success(new LoginResponse(output.accessToken()));
   }
 
 }

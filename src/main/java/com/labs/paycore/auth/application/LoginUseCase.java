@@ -21,7 +21,6 @@ public class LoginUseCase {
 
     if (user.isEmpty()) {
       throw new NotFoundUserException();
-
     }
 
     var password = BCrypt.verifyer().verify(input.password().toCharArray(),

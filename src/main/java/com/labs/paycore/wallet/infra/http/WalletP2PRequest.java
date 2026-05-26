@@ -3,7 +3,7 @@ package com.labs.paycore.wallet.infra.http;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record WalletTransferDto(
+public record WalletP2PRequest(
   @NotBlank(message = "Sender Wallet Id Não pode ser vazio!")
   @NotNull(message = "Sender Wallet Id Não pode ser vazio!")
   String senderWalletId,

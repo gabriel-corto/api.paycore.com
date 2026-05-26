@@ -18,13 +18,13 @@ import com.labs.paycore.wallet.domain.SelfTransferException;
 import com.labs.paycore.wallet.domain.WalletRepository;
 
 @Service
-public class WalletTransferUseCase {
+public class WalletP2PUseCase {
 
     private final UserRepository userRepository;
     private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
 
-    public WalletTransferUseCase(
+    public WalletP2PUseCase(
         UserRepository userRepository,
         WalletRepository walletRepository,
         TransactionRepository transactionRepository
@@ -35,7 +35,7 @@ public class WalletTransferUseCase {
         this.transactionRepository = transactionRepository;
     }
 
-    public void execute(WalletTransferUseCaseInput input) {
+    public void execute(WalletP2PUseCaseInput input) {
         UUID senderWalletId = UUID.fromString(input.senderWalletId());
         var senderWallet = this.walletRepository.findById(senderWalletId);
 

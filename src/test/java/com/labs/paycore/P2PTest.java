@@ -12,8 +12,8 @@ import com.labs.paycore.user.application.CreateUserUseCase;
 import com.labs.paycore.user.infra.database.inmemory.InMemoryUserRepository;
 import com.labs.paycore.wallet.application.WalletDepositUseCase;
 import com.labs.paycore.wallet.application.WalletDepositUseCaseInput;
-import com.labs.paycore.wallet.application.WalletTransferUseCase;
-import com.labs.paycore.wallet.application.WalletTransferUseCaseInput;
+import com.labs.paycore.wallet.application.WalletP2PUseCase;
+import com.labs.paycore.wallet.application.WalletP2PUseCaseInput;
 import com.labs.paycore.wallet.infra.database.inmemory.InMemoryWalletRepository;
 
 public class P2PTest {
@@ -26,7 +26,7 @@ public class P2PTest {
 
     var createUserUseCase = new CreateUserUseCase(userRepository, walletRepository);
     var walletDepositUseCase = new WalletDepositUseCase(walletRepository, transactionRepository);
-    var walletTransferUseCase = new WalletTransferUseCase(userRepository, walletRepository, transactionRepository);
+    var walletTransferUseCase = new WalletP2PUseCase(userRepository, walletRepository, transactionRepository);
 
     var createUserInput1 = new CreateUserInput("Fake User", "sender@email.com", "000000000AA000", "password");
     createUserUseCase.execute(createUserInput1);
@@ -40,7 +40,7 @@ public class P2PTest {
     createUserUseCase.execute(createUserInput2);
     var recipient = userRepository.findByEmail("recipient@email.com");
 
-    var walletTransferInput = new WalletTransferUseCaseInput(
+    var walletTransferInput = new WalletP2PUseCaseInput(
         senderWallet.get().getId().toString(),
         "500",
         "recipient@email.com");

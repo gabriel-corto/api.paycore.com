@@ -3,7 +3,7 @@ package com.labs.paycore.wallet.infra.http;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record WalletDepositDto(
+public record WalletDepositRequest(
   @NotNull(message = "Quantidade é obrigatório")
   @NotBlank(message = "Quantidade é obrigatório")
   String amount, 
