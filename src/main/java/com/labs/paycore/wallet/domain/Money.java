@@ -1,5 +1,7 @@
 package com.labs.paycore.wallet.domain;
 
+import java.math.BigDecimal;
+
 public class Money {
   private long value;
 
@@ -37,13 +39,13 @@ public class Money {
   private long toCent(long value) {
     return value * 100;
   }
-
-  public long toUnit() {
-    return value / 100;
-  }
-
+  
   @Override
   public String toString() {
     return String.valueOf(this.value);
+  }
+
+  public BigDecimal toUnit() {
+    return new BigDecimal(this.value).divide(new BigDecimal(100));
   }
 }

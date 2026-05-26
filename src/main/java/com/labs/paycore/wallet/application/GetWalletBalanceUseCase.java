@@ -1,6 +1,5 @@
 package com.labs.paycore.wallet.application;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +22,7 @@ public class GetWalletBalanceUseCase {
       throw new NotFoundWalletException();
     }
     
-    var balanceInCents = wallet.get().getBalance().getValue(); 
-    BigDecimal balance = new BigDecimal(balanceInCents).divide(new BigDecimal(100));
+    var balance = wallet.get().getBalance().toUnit();
     
     return new GetBalanceUseCaseOutput(balance);
   }

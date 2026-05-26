@@ -35,7 +35,7 @@ public class GetTransactionsByWalletIdUseCase {
     
     return transactions.stream().map(t -> new TransactionOutput(
       t.getId().toString(),
-      String.valueOf(t.getAmount().toUnit()),
+      t.getAmount().toUnit(),
       t.getOperation().toString(),
       t.getType().toString(),
       t.getCreatedAt().toString(),
