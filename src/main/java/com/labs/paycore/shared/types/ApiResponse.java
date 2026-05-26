@@ -12,11 +12,21 @@ public class ApiResponse<T> {
     this.message = message;
   }
 
+  public ApiResponse(String message) {
+    this.message = message;
+    this.data = null;
+  }
+
+  public ApiResponse(T data) {
+    this.data = data;
+    this.message = null;
+  }
+
   public static <T> ApiResponse<T> success(T data) {
-    return new ApiResponse<>(data, null);
+    return new ApiResponse<>(data);
   }
 
   public static <T> ApiResponse<T> ok(String message) {
-    return new ApiResponse<>(null, message);
+    return new ApiResponse<>(message);
   }
 }

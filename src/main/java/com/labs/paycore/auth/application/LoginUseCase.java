@@ -30,6 +30,6 @@ public class LoginUseCase {
       throw new InvalidCredentialsException();
     }
 
-    return new LoginUseCaseOutput("");
+    return new LoginUseCaseOutput("fakeAccessToken");
   }
 }
