@@ -1,6 +1,6 @@
-package com.labs.paycore.transaction.application;
+package com.labs.paycore.transaction.infra.http;
 
-public record TransactionOutput(
+public record TransactionResponse(
   String id,
   String amount,
   String operation,

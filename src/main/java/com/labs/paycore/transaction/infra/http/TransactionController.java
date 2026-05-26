@@ -2,12 +2,12 @@ package com.labs.paycore.transaction.infra.http;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labs.paycore.shared.types.ApiResponse;
 import com.labs.paycore.transaction.application.GetAllTransactionsUseCase;
 import com.labs.paycore.transaction.application.GetTransactionsByWalletIdUseCase;
 import com.labs.paycore.transaction.application.TransactionOutput;
@@ -18,8 +18,7 @@ public class TransactionController {
   private GetTransactionsByWalletIdUseCase getTransactionsUseCase;
   private GetAllTransactionsUseCase getAllTransactionsUseCase;
 
-  public TransactionController
-  (
+  public TransactionController(
     GetTransactionsByWalletIdUseCase getTransactionsUseCase,
     GetAllTransactionsUseCase getAllTransactionsUseCase
   )
@@ -29,14 +28,14 @@ public class TransactionController {
   }
 
   @GetMapping("/{walletId}")
-  public ResponseEntity<List<TransactionOutput>> getTransactions(@PathVariable String walletId) {
+  public ApiResponse<List<TransactionOutput>> getTransactions(@PathVariable String walletId) {
     var transactions = this.getTransactionsUseCase.execute(walletId);
-    return ResponseEntity.ok(transactions);
+    return ApiResponse.success(transactions);
   }
 
   @GetMapping("")
-  public ResponseEntity<List<TransactionOutput>> getAllTransactions() {
+  public ApiResponse<List<TransactionOutput>> getAllTransactions() {
     var transactions = this.getAllTransactionsUseCase.execute();
-    return ResponseEntity.ok(transactions);
+    return ApiResponse.success(transactions);
   }
 }

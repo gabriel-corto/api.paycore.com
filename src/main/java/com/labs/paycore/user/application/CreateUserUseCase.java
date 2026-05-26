@@ -1,15 +1,17 @@
 package com.labs.paycore.user.application;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Service;
+
 import com.labs.paycore.user.domain.Email;
 import com.labs.paycore.user.domain.Nif;
 import com.labs.paycore.user.domain.User;
 import com.labs.paycore.user.domain.UserRepository;
 import com.labs.paycore.user.domain.UserWithSameEmailException;
 import com.labs.paycore.user.domain.UserWithSameNifException;
+
 import com.labs.paycore.wallet.domain.Wallet;
 import com.labs.paycore.wallet.domain.WalletRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CreateUserUseCase {
@@ -38,10 +40,7 @@ public class CreateUserUseCase {
             throw new UserWithSameNifException();
         }
 
-        var passwordHashed = BCrypt.withDefaults().hashToString(
-            12,
-            input.password().toCharArray()
-        );
+        var passwordHashed = BCrypt.withDefaults().hashToString(12, input.password().toCharArray());
 
         var user = User.create(
             input.name(),
