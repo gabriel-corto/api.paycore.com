@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.labs.paycore.auth.application.LoginUseCase;
 import com.labs.paycore.auth.application.LoginUseCaseInput;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -23,11 +23,11 @@ public class AuthController {
 
   @PostMapping("/login")  
   public LoginResponse login(@Valid @RequestBody LoginDto body) {
-    var output = this.loginUseCase.execute(new LoginUseCaseInput(
-      body.email(), 
-      body.password()
-    ));
-    return LoginResponse.create(output.accessToken());
+    var input = new LoginUseCaseInput(body.email(), body.password());
+
+    var output = this.loginUseCase.execute(input);
+
+    return LoginResponse.wrap(output.accessToken());
   }
 
 }
