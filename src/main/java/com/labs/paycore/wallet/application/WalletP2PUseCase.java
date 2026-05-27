@@ -50,7 +50,7 @@ public class WalletP2PUseCase {
             throw new SelfTransferException();
         }
 
-        var amount = input.amount().longValue();
+        var amount = input.amount();
 
         senderWallet.get().withdraw(amount);
 
@@ -61,14 +61,14 @@ public class WalletP2PUseCase {
         walletRepository.save(recipientWallet.get());
 
         var senderTransaction = Transaction.create(
-            Money.toCents(amount),
+            Money.fromCents(amount),
             TransactionOperation.TRANSFER,
             TransactionType.OUTCOME,
             input.senderWalletId()
         );
 
         var recipientTransaction = Transaction.create(
-            Money.toCents(amount),
+            Money.fromCents(amount),
             TransactionOperation.TRANSFER,
             TransactionType.INCOME,
             recipientWallet.get().getUserId()

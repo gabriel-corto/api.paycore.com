@@ -1,6 +1,6 @@
 package com.labs.paycore.user.infra.http;
 
-public record GetProfileResponse(
+public record GetMeResponse(
   String id, 
   String name, 
   String email, 

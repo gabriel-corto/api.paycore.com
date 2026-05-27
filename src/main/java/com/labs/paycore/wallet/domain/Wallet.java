@@ -24,16 +24,14 @@ public class Wallet {
     return new Wallet(id, balance, userId);
   }
 
-  public void deposit(long amount) {
-    this.balance.add(amount);
+  public void deposit(long amountCents) {
+    this.balance.addCents(amountCents);
   }
 
-  public void withdraw(long amount) {
-    var balanceInUnits = this.balance.getValue() / 100;
-
-    if (amount > balanceInUnits) {
+  public void withdraw(long amountCents) {
+    if (amountCents > this.balance.getValue()) {
       throw new InsufficientBalanceException();
     }
-    this.balance.sub(amount);
+    this.balance.subCents(amountCents);
   }
 }

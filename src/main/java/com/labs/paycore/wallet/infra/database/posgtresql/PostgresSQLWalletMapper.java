@@ -8,7 +8,7 @@ public class PostgresSQLWalletMapper {
   static Wallet toDomain(WalletModel walletModel) {
     return Wallet.restore(
         walletModel.getId(),
-        Money.toCents(walletModel.getBalance()),
+        Money.fromCents(walletModel.getBalance()),
         walletModel.getUserId());
   }
 

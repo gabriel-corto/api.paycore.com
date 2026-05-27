@@ -1,6 +1,6 @@
 package com.labs.paycore.user.application;
 
-public record GetProfileUseCaseOutput(
+public record GetMeUseCaseOutPut(
   String id, 
   String name, 
   String email, 

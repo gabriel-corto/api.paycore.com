@@ -9,7 +9,7 @@ public class PostgreSQLTransactionMapper {
     static Transaction toDomain(TransactionModel transactionModel) {
         return Transaction.restore(
                 transactionModel.getId(),
-                Money.toCents(transactionModel.getAmount()),
+                Money.fromCents(transactionModel.getAmount()),
                 transactionModel.getOperation(),
                 transactionModel.getType(),
                 transactionModel.getStatus(),

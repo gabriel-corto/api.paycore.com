@@ -2,8 +2,6 @@ package com.labs.paycore;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +32,7 @@ public class P2PTest {
     createUserUseCase.execute(createUserInput1);
     var sender = userRepository.findByEmail("sender@email.com");
 
-    var walletDepositInput = new WalletDepositUseCaseInput(new BigDecimal(500), sender.get().getId());
+    var walletDepositInput = new WalletDepositUseCaseInput(50000L, sender.get().getId());
     walletDepositUseCase.execute(walletDepositInput);
     var senderWallet = walletRepository.findByUserId(sender.get().getId());
 
@@ -44,12 +42,12 @@ public class P2PTest {
 
     var walletTransferInput = new WalletP2PUseCaseInput(
         senderWallet.get().getId(),
-        new BigDecimal(500),
+        50000L,
         "recipient@email.com");
     walletTransferUseCase.execute(walletTransferInput);
     var recipientWallet = walletRepository.findByUserId(recipient.get().getId());
 
-    assertThat(recipientWallet.get().getBalance().toUnit()).isEqualTo(500);
+    assertThat(recipientWallet.get().getBalance().toUnit()).isEqualTo(new java.math.BigDecimal("500.00"));
     assertThat(senderWallet.get().getBalance().getValue()).isEqualTo(0);
   }
 }

@@ -41,7 +41,7 @@ public class CardLessWithdraw {
   public static CardLessWithdraw create(long amount, Integer code, UUID walletId) {
     return new CardLessWithdraw(
         UUID.randomUUID(),
-        Money.toCents(amount),
+        Money.fromCents(amount),
         walletId,
         generateReference(),
         CardLessWithdrawStatus.PENDING,

@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
-
 import com.labs.paycore.user.application.CreateUserInput;
 import com.labs.paycore.user.application.CreateUserUseCase;
 import com.labs.paycore.user.infra.database.inmemory.InMemoryUserRepository;
@@ -35,11 +33,11 @@ public class WalletDepositTest {
     var user = userRepository.findByEmail("fake@email.com");
 
     var walletDepositUseCase = new WalletDepositUseCase(walletRepository, transactionRepository);
-    var WalletDepositUseCaseInput = new WalletDepositUseCaseInput(new BigDecimal(500), user.get().getId());
+    var WalletDepositUseCaseInput = new WalletDepositUseCaseInput(50000L, user.get().getId());
     walletDepositUseCase.execute(WalletDepositUseCaseInput);
 
     var wallet = walletRepository.findByUserId(user.get().getId());
 
-    assertThat(wallet.get().getBalance().toUnit()).isEqualTo(500);
+    assertThat(wallet.get().getBalance().toUnit()).isEqualTo(new java.math.BigDecimal("500.00"));
   }
 }

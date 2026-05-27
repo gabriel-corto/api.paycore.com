@@ -33,12 +33,12 @@ public class WalletDepositUseCase {
             throw new NotFoundWalletException();
         }
 
-        long amount = input.amount().longValue();
+        long amount = input.amount();
 
         wallet.get().deposit(amount);
 
         var transaction = Transaction.create(
-            Money.toCents(amount),
+            Money.fromCents(amount),
             TransactionOperation.DEPOSIT,
             TransactionType.INCOME,
             wallet.get().getId()

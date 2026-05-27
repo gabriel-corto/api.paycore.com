@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.labs.paycore.shared.types.ApiResponse;
 import com.labs.paycore.user.application.CreateUserUseCase;
-import com.labs.paycore.user.application.GetProfileUseCase;
+import com.labs.paycore.user.application.GetMeUseCase;
 
 import jakarta.validation.Valid;
 
@@ -21,25 +21,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/users")
 public class UserController {
   private final CreateUserUseCase createUserUseCase;
-  private final GetProfileUseCase getProfileUseCase;
+  private final GetMeUseCase getMeUseCase;
 
   public UserController(
-    GetProfileUseCase getProfileUseCase,
+    GetMeUseCase getMeUseCase,
     CreateUserUseCase createUserUseCase
   ) 
   {
-    this.getProfileUseCase = getProfileUseCase;
+    this.getMeUseCase = getMeUseCase;
     this.createUserUseCase = createUserUseCase;
   }
 
-  @GetMapping("/profile")
-  public ApiResponse<GetProfileResponse> getProfile(
+  @GetMapping("/me")
+  public ApiResponse<GetMeResponse> getMe(
     @RequestHeader("x-user-id") UUID userId
   ) 
   {
-    var output = this.getProfileUseCase.execute(userId);
+    var output = this.getMeUseCase.execute(userId);
     
-    return ApiResponse.success(new GetProfileResponse(
+    return ApiResponse.success(new GetMeResponse(
       output.id(), 
       output.name(), 
       output.email(),

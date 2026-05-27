@@ -27,7 +27,10 @@ public class AuthController {
 
     var output = this.loginUseCase.execute(input);
 
-    return ApiResponse.success(new LoginResponse(output.accessToken()));
+    return ApiResponse.success(new LoginResponse(
+      output.walletId(), 
+      output.userId()
+    ));
   }
 
 }

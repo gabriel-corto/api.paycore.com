@@ -8,21 +8,21 @@ import com.labs.paycore.shared.domain.errors.NotFoundUserException;
 import com.labs.paycore.user.domain.UserRepository;
 
 @Service
-public class GetProfileUseCase {
+public class GetMeUseCase {
   private final UserRepository userRepository;
 
-  public GetProfileUseCase(UserRepository userRepository) {
+  public GetMeUseCase(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
-  public GetProfileUseCaseOutput execute(UUID userId) {
+  public GetMeUseCaseOutPut execute(UUID userId) {
     var user = this.userRepository.findById(userId);
 
     if(user.isEmpty()) {
       throw new NotFoundUserException();
     }
 
-    var output = new GetProfileUseCaseOutput(
+    var output = new GetMeUseCaseOutPut(
       user.get().getId().toString(), 
       user.get().getName(), 
       user.get().getEmail().getValue(), 

@@ -1,3 +1,3 @@
 package com.labs.paycore.auth.infra.http;
 
-public record LoginResponse(String accessToken) {}
+public record LoginResponse(String walletId, String userId) {}

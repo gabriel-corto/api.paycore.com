@@ -5,15 +5,23 @@ import org.springframework.stereotype.Service;
 import com.labs.paycore.auth.domain.InvalidCredentialsException;
 import com.labs.paycore.shared.domain.errors.NotFoundUserException;
 import com.labs.paycore.user.domain.UserRepository;
+import com.labs.paycore.wallet.domain.NotFoundWalletException;
+import com.labs.paycore.wallet.domain.WalletRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 @Service
 public class LoginUseCase {
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
+  private final WalletRepository walletRepository;
 
-  public LoginUseCase(UserRepository userRepository) {
+  public LoginUseCase(
+    UserRepository userRepository, 
+    WalletRepository walletRepository
+  ) 
+  {
     this.userRepository = userRepository;
+    this.walletRepository = walletRepository;
   }
 
   public LoginUseCaseOutput execute(LoginUseCaseInput input) {
@@ -30,6 +38,15 @@ public class LoginUseCase {
       throw new InvalidCredentialsException();
     }
 
-    return new LoginUseCaseOutput("fakeAccessToken");
+    var wallet = this.walletRepository.findByUserId(user.get().getId());
+
+    if (wallet.isEmpty()) {
+      throw new NotFoundWalletException();
+    }
+
+    return new LoginUseCaseOutput(
+      wallet.get().getId().toString(), 
+      user.get().getId().toString()
+    );
   }
 }

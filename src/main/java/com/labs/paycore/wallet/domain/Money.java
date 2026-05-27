@@ -10,12 +10,12 @@ public class Money {
     this.value = value;
   }
 
-  public static Money toCents(long value) {
-    return new Money(value * 100);
+  public static Money fromCents(long value) {
+    return new Money(value);
   }
 
-  public static Money toUnits(long value) {
-    return new Money(value);
+  public static Money toCents(long value) {
+    return new Money(value * 100);
   }
 
   public long getValue() {
@@ -28,16 +28,12 @@ public class Money {
     }
   }
 
-  public void add(long value) {
-    this.value = this.value + toCent(value);
+  public void addCents(long cents) {
+    this.value = this.value + cents;
   }
 
-  public void sub(long value) {
-    this.value = this.value - toCent(value);
-  }
-
-  private long toCent(long value) {
-    return value * 100;
+  public void subCents(long cents) {
+    this.value = this.value - cents;
   }
   
   @Override
@@ -46,6 +42,6 @@ public class Money {
   }
 
   public BigDecimal toUnit() {
-    return new BigDecimal(this.value).divide(new BigDecimal(100));
+    return new BigDecimal(this.value).divide(new BigDecimal(100), 2, java.math.RoundingMode.HALF_UP);
   }
 }

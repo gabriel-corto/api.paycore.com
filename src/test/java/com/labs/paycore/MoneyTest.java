@@ -13,22 +13,24 @@ public class MoneyTest {
   @Test
   @DisplayName("Should create a valid money with units value")
   void shouldCreateAValidMoneyWithUnitsValue() {
-    var money = Money.toUnits(500);
-    assertThat(money.getValue()).isEqualTo(500);
+    var money = Money.toCents(500);
+    assertThat(money.getValue()).isEqualTo(50000);
+    assertThat(money.toUnit()).isEqualTo(new java.math.BigDecimal("500.00"));
   }
 
   @Test
   @DisplayName("Should create a valid money with cents value")
   void shouldCreateAValidMoneyWithCentsValue() {
-    var money = Money.toCents(500);
+    var money = Money.fromCents(50000);
     assertThat(money.getValue()).isEqualTo(50000);
+    assertThat(money.toUnit()).isEqualTo(new java.math.BigDecimal("500.00"));
   }
 
   @Test
   @DisplayName("Should not be able to add negative value to money")
   void shouldNotBeAbleToAddNegativeValueToMoney() {
     assertThrows(InvalidAmountException.class, () -> {
-      Money.toUnits(-100);
+      Money.fromCents(-100);
     });
   }
 
